@@ -37,5 +37,3 @@ print("Winner 2 = " + y[1])
 print("Winner 3 = " + y[2])
 print("Winner 4 = " + y[3])
 print("Winner 5 = " + y[4])
-
-
