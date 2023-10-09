@@ -12,6 +12,7 @@ from sklearn import preprocessing
 #curr_epoch = response.json()[0]['epoch_no']
 #print ("Current epoch number: " + str(curr_epoch))
 
+
 filename = sys.argv[1]
 file_epoch = re.findall(r'\d+', filename)
 print("Lottery epoch: " + file_epoch[0])
