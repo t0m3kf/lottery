@@ -2,6 +2,7 @@
 import numpy
 import json
 import random
+from sklearn import preprocessing
 
 file = open("epoch_441.json")
 delegators_list = json.load(file)
@@ -19,15 +20,18 @@ for i in delegators_list:
 amounts = []
 for i in delegators_list:
     amounts.append(i['amount'])
-#print(amounts[1])
-#------------convert list of strings to intiger
+
+#------------convert list of ADA amount from strings to intigers
 amounts = list(map(int, amounts))
+print("Total stake = " + str(sum(amounts)/1000000) + "\n")
 #amounts = numpy.array(amounts, dtype=int)
 
+#------------normalize values of 'tickets' for numpy.random function
+weights = [float(i)/sum(amounts) for i in amounts]
+#print(sum(weights))
 
-#stake_keys = ["stake1", "stake2", "stake3", "stake4", "stake5"]
-y = random.choices(stake_keys, weights = amounts, k=5)
-#y = numpy.random.choice(stake_keys, size=5, replace=False, p=[amount])
+#------------choose 5 stake keys with no repetition using amount of stake as 'weights'
+y = numpy.random.choice(stake_keys, size=5, replace=False, p=weights)
 print("Winner 1 = " + y[0])
 print("Winner 2 = " + y[1])
 print("Winner 3 = " + y[2])
