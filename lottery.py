@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 import numpy
 import json
-import random
+import requests
+import sys
 from sklearn import preprocessing
 
-file = open("epoch_441.json")
-delegators_list = json.load(file)
+#api_url = "https://api.koios.rest/api/v0/pool_delegators?_pool_bech32=pool19xyfanyp28j6j07dxgwdjp0wur6seqmyyu64qgzstzl7s47pvpj&select=stake_address,amount,active_epoch_no&order=active_epoch_no"
+#response = requests.get(api_url)
+#delegators_list = response.json()
 
-#print(delegators_list[1]['stake_address'])
+filename = sys.argv[1]
+file = open(filename)
+delegators_list = json.load(file)
 
 #-------------loop through the JSON and extract stake keys, save as python list
 stake_keys = []
@@ -31,9 +35,9 @@ weights = [float(i)/sum(amounts) for i in amounts]
 #print(sum(weights))
 
 #------------choose 5 stake keys with no repetition using amount of stake as 'weights'
-y = numpy.random.choice(stake_keys, size=5, replace=False, p=weights)
-print("Winner 1 = " + y[0])
-print("Winner 2 = " + y[1])
-print("Winner 3 = " + y[2])
-print("Winner 4 = " + y[3])
-print("Winner 5 = " + y[4])
+winners = numpy.random.choice(stake_keys, size=5, replace=False, p=weights)
+print("Winner 1 = " + winners[0])
+print("Winner 2 = " + winners[1])
+print("Winner 3 = " + winners[2])
+print("Winner 4 = " + winners[3])
+print("Winner 5 = " + winners[4])
