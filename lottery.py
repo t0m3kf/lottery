@@ -3,13 +3,18 @@ import numpy
 import json
 import requests
 import sys
+import re
 from sklearn import preprocessing
 
-#api_url = "https://api.koios.rest/api/v0/pool_delegators?_pool_bech32=pool19xyfanyp28j6j07dxgwdjp0wur6seqmyyu64qgzstzl7s47pvpj&select=stake_address,amount,active_epoch_no&order=active_epoch_no"
+#delegators_api_url = "https://api.koios.rest/api/v0/pool_delegators?_pool_bech32=pool19xyfanyp28j6j07dxgwdjp0wur6seqmyyu64qgzstzl7s47pvpj&select=stake_address,amount,active_epoch_no&order=active_epoch_no"
+#epoch_api_url = "https://api.koios.rest/api/v0/tip?select=epoch_no"
 #response = requests.get(api_url)
-#delegators_list = response.json()
+#curr_epoch = response.json()[0]['epoch_no']
+#print ("Current epoch number: " + str(curr_epoch))
 
 filename = sys.argv[1]
+file_epoch = re.findall(r'\d+', filename)
+print("Lottery epoch: " + file_epoch[0])
 file = open(filename)
 delegators_list = json.load(file)
 
@@ -29,6 +34,11 @@ for i in delegators_list:
 amounts = list(map(int, amounts))
 print("Total stake = " + str(sum(amounts)/1000000) + "\n")
 #amounts = numpy.array(amounts, dtype=int)
+
+#------------extract number of active epochs per delegator
+active_epochs = []
+for i in delegators_list:
+    active_epochs.append(int(file_epoch[0])-i['active_epoch_no'])
 
 #------------normalize values of 'tickets' for numpy.random function
 weights = [float(i)/sum(amounts) for i in amounts]
