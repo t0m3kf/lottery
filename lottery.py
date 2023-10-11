@@ -14,7 +14,7 @@ from sklearn import preprocessing
 
 
 filename = sys.argv[1]
-file_epoch = re.findall(r'\d+', filename)       # extract epoch number from the filename
+file_epoch = re.findall(r'\d+', filename)       #extract epoch number from the filename
 print("Lottery Epoch: " + file_epoch[0])
 file = open(filename)
 delegators_list = json.load(file)
