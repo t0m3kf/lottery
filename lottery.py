@@ -14,8 +14,8 @@ from sklearn import preprocessing
 
 
 filename = sys.argv[1]
-file_epoch = re.findall(r'\d+', filename)
-print("Lottery epoch: " + file_epoch[0])
+file_epoch = re.findall(r'\d+', filename)       # extract epoch number from the filename
+print("Lottery Epoch: " + file_epoch[0])
 file = open(filename)
 delegators_list = json.load(file)
 
@@ -24,7 +24,7 @@ stake_keys = []
 for i in delegators_list:
     #print(i['stake_address'])
     stake_keys.append(i['stake_address'])
-#print(len(stake_keys))
+print("Total Delegators: " + str(len(stake_keys)))
 
 #-------------loop through the JSON and extract ADA stake amount, save as python list
 amounts = []
@@ -33,7 +33,7 @@ for i in delegators_list:
 
 #------------convert list of ADA amount from strings to intigers
 amounts = list(map(int, amounts))
-print("Total stake = " + str(sum(amounts)/1000000) + "\n")
+print("Total Stake = " + str(sum(amounts)/1000000) + "\n")
 #amounts = numpy.array(amounts, dtype=int)
 
 #------------extract number of active epochs per delegator
