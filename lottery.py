@@ -11,7 +11,7 @@ from sklearn import preprocessing
 #response = requests.get(api_url)
 #curr_epoch = response.json()[0]['epoch_no']
 #print ("Current epoch number: " + str(curr_epoch))
-
+#test
 
 filename = sys.argv[1]
 file_epoch = re.findall(r'\d+', filename)       #extract epoch number from the filename
